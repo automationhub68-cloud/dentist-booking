@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Book Appointment</title>
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:300px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input,textarea,button{
+width:100%;
+margin-top:10px;
+padding:8px;
+}
+
+button{
+background:#2ecc71;
+border:none;
+color:white;
+font-weight:bold;
+cursor:pointer;
+} </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Book Appointment</h2>
+
+<form id="bookingForm">
+
+<input type="text" id="name" placeholder="Patient Name" required>
+
+<input type="text" id="phone" placeholder="Phone Number" required>
+
+<input type="date" id="date" required>
+
+<input type="time" id="time" required>
+
+<textarea id="notes" placeholder="Notes"></textarea>
+
+<button type="submit">Book Appointment</button>
+
+</form>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let date=document.getElementById("date").value;
+let time=document.getElementById("time").value;
+let notes=document.getElementById("notes").value;
+
+let url="https://automationhub74.app.n8n.cloud/webhook/698c10bc-48f3-4d57-b325-8206984c3baf"+
+"?patient_name="+name+
+"&phone_number="+phone+
+"&appointment_date="+date+
+"&appointment_time="+time+
+"&notes="+notes;
+
+fetch(url)
+.then(res=>res.text())
+.then(data=>{
+
+document.querySelector(".container").innerHTML=
+"<h3>✅ Appointment booked successfully</h3><br>"+
+"Patient: "+name+"<br>"+
+"Date: "+date+"<br>"+
+"Time: "+time+"<br>"+
+"Notes: "+notes+
+"<br><br><button onclick='location.reload()'>Book Another Appointment</button>";
+
+document.getElementById("result").innerHTML=
+"<h3>✅ Appointment booked successfully</h3><br>"+
+"Patient: "+name+"<br>"+
+"Date: "+date+"<br>"+
+"Time: "+time+"<br>"+
+"Notes: "+notes+
+"<br><br><button onclick='location.reload()'>Book Another Appointment</button>";
+
+});
+});
+
+</script>
+
+</body>
+</html>
